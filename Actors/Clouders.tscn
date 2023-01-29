@@ -1,0 +1,117 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Scripts/create_cloud.gd" type="Script" id=1]
+[ext_resource path="res://Assets/cloud.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/creatingCloudProgress.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Clouders.gd" type="Script" id=4]
+[ext_resource path="res://Assets/progress_bar_progress_2.png.png" type="Texture" id=5]
+[ext_resource path="res://Assets/progress_bar_under_2.png" type="Texture" id=6]
+[ext_resource path="res://Assets/UI_font.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Scripts/add_cloud_label.gd" type="Script" id=8]
+
+[sub_resource type="Animation" id=2]
+resource_name = "adding_new_cloud"
+tracks/0/type = "value"
+tracks/0/path = NodePath("small_cloud:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.2, 0.2 ), Vector2( 0.7, 0.7 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_scale_diff"
+} ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_add_cloud"
+} ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("small_cloud:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 0.5 ),
+"update": 0,
+"values": [ Vector2( 0.2, 0.2 ), Vector2( 0.3, 0.3 ) ]
+}
+
+[node name="Clouders" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="create_cloud" type="Button" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = -80.0
+margin_top = -40.0
+margin_right = 80.0
+margin_bottom = 64.0
+script = ExtResource( 1 )
+
+[node name="small_cloud" type="Sprite" parent="."]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+anims/adding_new_cloud = SubResource( 2 )
+anims/idle = SubResource( 1 )
+
+[node name="creatingCloudProgress" type="TextureProgress" parent="."]
+margin_left = -40.0
+margin_top = 24.0
+margin_right = 208.0
+margin_bottom = 72.0
+rect_scale = Vector2( 0.3, 0.3 )
+texture_under = ExtResource( 6 )
+texture_progress = ExtResource( 5 )
+script = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -88.0
+margin_top = 40.0
+margin_right = 90.0
+margin_bottom = 73.0
+custom_fonts/font = ExtResource( 7 )
+text = "add cloud : %s"
+script = ExtResource( 8 )
+
+[connection signal="add_cloud" from="create_cloud" to="creatingCloudProgress" method="_on_create_cloud_add_cloud"]
+[connection signal="button_down" from="create_cloud" to="create_cloud" method="_on_create_cloud_button_down"]
+[connection signal="mouse_entered" from="create_cloud" to="create_cloud" method="_on_create_cloud_mouse_entered"]
+[connection signal="mouse_entered" from="create_cloud" to="Label" method="_on_create_cloud_mouse_entered"]
+[connection signal="mouse_exited" from="create_cloud" to="create_cloud" method="_on_create_cloud_mouse_exited"]
+[connection signal="mouse_exited" from="create_cloud" to="Label" method="_on_create_cloud_mouse_exited"]
+[connection signal="not_enough_prayers" from="create_cloud" to="Label" method="_on_create_cloud_not_enough_prayers"]
+[connection signal="create_cloud" from="creatingCloudProgress" to="." method="_on_creatingCloudProgress_create_cloud"]

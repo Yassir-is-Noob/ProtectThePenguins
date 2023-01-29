@@ -1,0 +1,87 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Scripts/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://Assets/particles/flames.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/bullets_detect.gd" type="Script" id=5]
+[ext_resource path="res://Actors/enemieshealthBar.tscn" type="PackedScene" id=6]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 40.0
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 68.0294
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.198312, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=8]
+gradient = SubResource( 3 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+emission_shape = 5
+emission_ring_radius = 50.0
+emission_ring_inner_radius = 0.0
+emission_ring_height = 1.0
+emission_ring_axis = Vector3( 0, 0, 1 )
+flag_disable_z = true
+direction = Vector3( 0, -5, 0 )
+gravity = Vector3( 0, -100, 0 )
+initial_velocity = 50.0
+initial_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 100.0
+linear_accel_random = 1.0
+angle = 720.0
+scale = 0.2
+scale_curve = SubResource( 6 )
+color = Color( 0.54902, 0, 0.101961, 1 )
+color_ramp = SubResource( 8 )
+
+[node name="Enemy" type="KinematicBody2D" groups=["Enemies"]]
+collision_mask = 0
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
+
+[node name="bullets_detect" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 22
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="bullets_detect"]
+visible = false
+position = Vector2( 0, -9 )
+shape = SubResource( 2 )
+
+[node name="flames" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, 26 )
+
+[node name="flamesParticle" parent="flames" index="0"]
+process_material = SubResource( 7 )
+
+[node name="enemieshealthBar" parent="." instance=ExtResource( 6 )]
+margin_left = -77.0
+margin_top = -84.0
+margin_right = 283.0
+margin_bottom = -25.0
+
+[connection signal="area_entered" from="bullets_detect" to="bullets_detect" method="_on_bullets_detect_area_entered"]
+[connection signal="body_entered" from="bullets_detect" to="bullets_detect" method="_on_bullets_detect_body_entered"]
+[connection signal="death_anim" from="bullets_detect" to="." method="_on_bullets_detect_death_anim"]
+[connection signal="hit" from="bullets_detect" to="enemieshealthBar" method="_on_bullets_detect_hit"]
+[connection signal="anim_fin" from="flames" to="." method="_on_flames_anim_fin"]
+[connection signal="disable" from="flames" to="." method="_on_flames_disable"]
+[connection signal="disable" from="flames" to="bullets_detect" method="_on_flames_disable"]
+[connection signal="death" from="enemieshealthBar" to="." method="_on_healthBar_death"]
+
+[editable path="flames"]

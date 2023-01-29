@@ -1,0 +1,298 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://Actors/healthBar.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Actors/Clouders.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/sweet.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Scripts/Tutorial.gd" type="Script" id=4]
+[ext_resource path="res://Actors/enemy_spawner.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Autoloads/camera_shake.tscn" type="PackedScene" id=6]
+[ext_resource path="res://UI/UI.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scripts/Player_Talk.gd" type="Script" id=8]
+[ext_resource path="res://Assets/UI_font.tres" type="DynamicFont" id=9]
+[ext_resource path="res://Templates/pause_menu.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scripts/penguins_cult.gd" type="Script" id=11]
+[ext_resource path="res://Scripts/pray.gd" type="Script" id=12]
+[ext_resource path="res://Scripts/prayButton.gd" type="Script" id=13]
+[ext_resource path="res://Actors/penguin.tscn" type="PackedScene" id=14]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=6]
+resource_name = "Tut_finished"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Have fun !!!" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "back_to_main_menu"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "gameplay_time"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "normal_anim"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "press_enemies"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "press_enemies"
+} ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "start"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "press_clouder"
+} ]
+}
+
+[node name="Tutorial" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="Player_Talk" type="Label" parent="."]
+margin_left = 552.0
+margin_top = 224.0
+margin_right = 1075.0
+margin_bottom = 271.0
+rect_pivot_offset = Vector2( 280, 22 )
+custom_fonts/font = SubResource( 1 )
+text = "Welcome to the Cloud Prayers"
+align = 1
+valign = 1
+script = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player_Talk"]
+autoplay = "start"
+anims/Tut_finished = SubResource( 6 )
+anims/gameplay_time = SubResource( 4 )
+anims/normal_anim = SubResource( 3 )
+anims/press_enemies = SubResource( 5 )
+anims/start = SubResource( 2 )
+
+[node name="pause" type="Timer" parent="Player_Talk"]
+
+[node name="Clouders" parent="." instance=ExtResource( 2 )]
+position = Vector2( 832, 408 )
+
+[node name="penguins_cult" type="Node2D" parent="."]
+position = Vector2( 832, 568 )
+script = ExtResource( 11 )
+
+[node name="Penguin4" parent="penguins_cult" instance=ExtResource( 14 )]
+position = Vector2( 1, 39 )
+
+[node name="prayButton" type="Button" parent="penguins_cult"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = -103.0
+margin_top = -84.0
+margin_right = 115.0
+margin_bottom = 88.0
+focus_mode = 0
+enabled_focus_mode = 0
+script = ExtResource( 13 )
+
+[node name="healthBar" parent="penguins_cult" instance=ExtResource( 1 )]
+margin_left = -94.0
+margin_top = 125.0
+margin_right = 266.0
+margin_bottom = 184.0
+mhealth = 200
+
+[node name="pray" type="Label" parent="penguins_cult"]
+margin_left = -115.0
+margin_top = 86.0
+margin_right = 100.0
+margin_bottom = 110.0
+custom_fonts/font = ExtResource( 9 )
+text = "Pray : %s"
+align = 1
+script = ExtResource( 12 )
+
+[node name="Timer" type="Timer" parent="penguins_cult/pray"]
+one_shot = true
+
+[node name="AddPenguin" type="Timer" parent="penguins_cult" groups=["AddingPenguins"]]
+wait_time = 10.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+margin_left = 32.0
+margin_top = 648.0
+margin_right = 381.0
+margin_bottom = 695.0
+custom_fonts/font = ExtResource( 9 )
+text = "escape : pause menu"
+
+[node name="enemy_spawner" parent="." instance=ExtResource( 5 )]
+
+[node name="camera_shake" parent="." instance=ExtResource( 6 )]
+position = Vector2( 768, 320 )
+
+[node name="UI" parent="." instance=ExtResource( 7 )]
+
+[node name="pause_menu" parent="." instance=ExtResource( 10 )]
+
+[node name="Play" parent="pause_menu/Panel" index="0"]
+visible = false
+
+[node name="Tutorial" parent="pause_menu/Panel" index="2"]
+margin_top = 114.286
+margin_bottom = 218.286
+
+[connection signal="added_cloud" from="Clouders" to="." method="_on_Clouders_added_cloud"]
+[connection signal="added_cloud" from="Clouders" to="Player_Talk" method="add_prayers"]
+[connection signal="button_down" from="penguins_cult/prayButton" to="penguins_cult" method="_on_prayButton_button_down"]
+[connection signal="button_down" from="penguins_cult/prayButton" to="penguins_cult/prayButton" method="_on_prayButton_button_down"]
+[connection signal="mouse_entered" from="penguins_cult/prayButton" to="penguins_cult/prayButton" method="_on_prayButton_mouse_entered"]
+[connection signal="mouse_entered" from="penguins_cult/prayButton" to="penguins_cult/pray" method="_on_prayButton_mouse_entered"]
+[connection signal="mouse_exited" from="penguins_cult/prayButton" to="penguins_cult/prayButton" method="_on_prayButton_mouse_exited"]
+[connection signal="mouse_exited" from="penguins_cult/prayButton" to="penguins_cult/pray" method="_on_prayButton_mouse_exited"]
+[connection signal="no_clouds_detected" from="penguins_cult/prayButton" to="penguins_cult/pray" method="_on_prayButton_no_clouds_detected"]
+[connection signal="not_enough_coins" from="penguins_cult/prayButton" to="penguins_cult/pray" method="_on_prayButton_not_enough_coins"]
+[connection signal="game_over" from="penguins_cult/healthBar" to="penguins_cult" method="_on_healthBar_game_over"]
+[connection signal="timeout" from="penguins_cult/pray/Timer" to="penguins_cult/pray" method="_on_Timer_timeout"]
+[connection signal="timeout" from="penguins_cult/AddPenguin" to="penguins_cult" method="_on_AddPenguin_timeout"]
+
+[editable path="enemy_spawner"]
+[editable path="pause_menu"]
+[editable path="pause_menu/Panel"]

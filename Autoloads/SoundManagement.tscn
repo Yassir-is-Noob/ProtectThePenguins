@@ -1,0 +1,34 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/SoundManagement.gd" type="Script" id=1]
+[ext_resource path="res://Assets/audio/fire_death.wav" type="AudioStream" id=2]
+[ext_resource path="res://Assets/audio/hit.wav" type="AudioStream" id=3]
+[ext_resource path="res://Assets/audio/button.wav" type="AudioStream" id=4]
+[ext_resource path="res://Assets/audio/fire_burning.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Assets/audio/fire_die.wav" type="AudioStream" id=6]
+[ext_resource path="res://Assets/audio/pray.wav" type="AudioStream" id=7]
+[ext_resource path="res://Assets/audio/cloud_construction.wav" type="AudioStream" id=8]
+
+[node name="SoundManagement" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Button" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+
+[node name="fire_idle" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+
+[node name="fire_death" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+
+[node name="fire_death2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[node name="shoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="pray" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="add_cloud" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )

@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Actors/penguin.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/penguins_cult.gd" type="Script" id=2]
+[ext_resource path="res://Assets/UI_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Scripts/pray.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/prayButton.gd" type="Script" id=6]
+[ext_resource path="res://Actors/healthBar.tscn" type="PackedScene" id=7]
+
+[node name="penguins_cult" type="Node2D"]
+position = Vector2( 211, 145 )
+script = ExtResource( 2 )
+
+[node name="Penguin" parent="." instance=ExtResource( 1 )]
+
+[node name="Penguin2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 52, 13 )
+
+[node name="Penguin3" parent="." instance=ExtResource( 1 )]
+position = Vector2( -44, 13 )
+
+[node name="Penguin4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1, 39 )
+
+[node name="prayButton" type="Button" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = -103.0
+margin_top = -84.0
+margin_right = 115.0
+margin_bottom = 88.0
+focus_mode = 0
+enabled_focus_mode = 0
+script = ExtResource( 6 )
+
+[node name="healthBar" parent="." instance=ExtResource( 7 )]
+margin_left = -94.0
+margin_top = 125.0
+margin_right = 266.0
+margin_bottom = 184.0
+mhealth = 200
+
+[node name="pray" type="Label" parent="."]
+margin_left = -115.0
+margin_top = 86.0
+margin_right = 100.0
+margin_bottom = 110.0
+custom_fonts/font = ExtResource( 3 )
+text = "Pray : %s"
+align = 1
+script = ExtResource( 4 )
+
+[node name="Timer" type="Timer" parent="pray"]
+one_shot = true
+
+[node name="AddPenguin" type="Timer" parent="." groups=["AddingPenguins"]]
+wait_time = 10.0
+
+[connection signal="button_down" from="prayButton" to="." method="_on_prayButton_button_down"]
+[connection signal="button_down" from="prayButton" to="prayButton" method="_on_prayButton_button_down"]
+[connection signal="mouse_entered" from="prayButton" to="prayButton" method="_on_prayButton_mouse_entered"]
+[connection signal="mouse_entered" from="prayButton" to="pray" method="_on_prayButton_mouse_entered"]
+[connection signal="mouse_exited" from="prayButton" to="prayButton" method="_on_prayButton_mouse_exited"]
+[connection signal="mouse_exited" from="prayButton" to="pray" method="_on_prayButton_mouse_exited"]
+[connection signal="no_clouds_detected" from="prayButton" to="pray" method="_on_prayButton_no_clouds_detected"]
+[connection signal="not_enough_coins" from="prayButton" to="pray" method="_on_prayButton_not_enough_coins"]
+[connection signal="game_over" from="healthBar" to="." method="_on_healthBar_game_over"]
+[connection signal="timeout" from="pray/Timer" to="pray" method="_on_Timer_timeout"]
+[connection signal="timeout" from="AddPenguin" to="." method="_on_AddPenguin_timeout"]
