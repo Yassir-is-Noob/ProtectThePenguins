@@ -9,6 +9,6 @@ If a cloud is taken by fire, you can reconstruct it with more prayers !
 Tap on penguins to pray and have more rain
 There is one cloud controlled by mouse left click to shoot and the others shoot automatically based on range.
 
-### NOTES ###
-The game is unfinished, needs a lot of polish.
-Will be posted here after the jam ends.
+### UPDATE ###
+Added one new enemy ( blue flame )
+adjusted the fonts and performance 
